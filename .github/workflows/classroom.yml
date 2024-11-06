@@ -1,0 +1,130 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Test 0
+      id: test-0
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Test 0
+        setup-command: ''
+        command: gradle test --tests AppTest.test0
+        timeout: 10
+        max-score: 1
+    - name: Test 1
+      id: test-1
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Test 1
+        setup-command: ''
+        command: gradle test --tests AppTest.test1
+        timeout: 10
+        max-score: 1
+    - name: Test 2
+      id: test-2
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Test 2
+        setup-command: ''
+        command: gradle test --tests AppTest.test2
+        timeout: 10
+        max-score: 1
+    - name: Test 3
+      id: test-3
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Test 3
+        setup-command: ''
+        command: gradle test --tests AppTest.test3
+        timeout: 10
+        max-score: 1
+    - name: Test 4
+      id: test-4
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Test 4
+        setup-command: ''
+        command: gradle test --tests AppTest.test4
+        timeout: 10
+        max-score: 1
+    - name: Test 5
+      id: test-5
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Test 5
+        setup-command: ''
+        command: gradle test --tests AppTest.test5
+        timeout: 10
+        max-score: 1
+    - name: Test 6
+      id: test-6
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Test 6
+        setup-command: ''
+        command: gradle test --tests AppTest.test6
+        timeout: 10
+        max-score: 1
+    - name: Test 7
+      id: test-7
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Test 7
+        setup-command: ''
+        command: gradle test --tests AppTest.test7
+        timeout: 10
+        max-score: 1
+    - name: Test 8
+      id: test-8
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Test 8
+        setup-command: ''
+        command: gradle test --tests AppTest.test8
+        timeout: 10
+        max-score: 1
+    - name: Test 9
+      id: test-9
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Test 9
+        setup-command: ''
+        command: gradle test --tests AppTest.test9
+        timeout: 10
+        max-score: 1
+    - name: Test 10
+      id: test-10
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Test 10
+        setup-command: ''
+        command: gradle test --tests AppTest.test10
+        timeout: 10
+        max-score: 1
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        TEST-0_RESULTS: "${{steps.test-0.outputs.result}}"
+        TEST-1_RESULTS: "${{steps.test-1.outputs.result}}"
+        TEST-2_RESULTS: "${{steps.test-2.outputs.result}}"
+        TEST-3_RESULTS: "${{steps.test-3.outputs.result}}"
+        TEST-4_RESULTS: "${{steps.test-4.outputs.result}}"
+        TEST-5_RESULTS: "${{steps.test-5.outputs.result}}"
+        TEST-6_RESULTS: "${{steps.test-6.outputs.result}}"
+        TEST-7_RESULTS: "${{steps.test-7.outputs.result}}"
+        TEST-8_RESULTS: "${{steps.test-8.outputs.result}}"
+        TEST-9_RESULTS: "${{steps.test-9.outputs.result}}"
+        TEST-10_RESULTS: "${{steps.test-10.outputs.result}}"
+      with:
+        runners: test-0,test-1,test-2,test-3,test-4,test-5,test-6,test-7,test-8,test-9,test-10
