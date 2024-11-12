@@ -9,4 +9,3 @@
 
 rootProject.name = 'Tema1'
 include('app')
-include('Tema1.VoterTest');
