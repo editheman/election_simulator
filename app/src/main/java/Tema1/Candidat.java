@@ -1,16 +1,22 @@
 package Tema1;
+import java.util.ArrayList;
+
 public class Candidat extends Persoana {
 
-    int nr_voturi = 0;
+    private int nrVoturi = 0;
+
+    public Candidat() {
+        ArrayList<Candidat> candidati = new ArrayList<>();
+    }
 
     public Candidat(String nume, int varsta, String CNP) {
         super(nume, varsta, CNP);
     }
-    public int getNr_voturi() {
 
-        return nr_voturi;
+    public void incNrVoturi() {
+        nrVoturi++;
     }
-    public void validareDate(){
-        if()
+    public int getNrVoturi() {
+        return nrVoturi;
     }
 }

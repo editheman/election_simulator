@@ -1,38 +1,65 @@
 package Tema1;
-abstract class Persoana {
-    protected String CNP;
-    protected String nume;
-    protected int varsta;
 
-    public Persoana() {}
+
+import java.util.ArrayList;
+
+abstract class Persoana {
+    private String CNP;
+    private String nume;
+    private int varsta;
+
+    public static ArrayList<Persoana> persoane;
+    public Persoana() {
+
+    }
     public Persoana(String nume, int varsta, String CNP) {
-        this.nume = nume;
-        this.varsta = varsta;
-        this.CNP = CNP;
+        setCNP(CNP);
+        setNume(nume);
+        setVarsta(varsta);
+    }
+
+    public void setCNP(String CNP){
+        if(validareCNP(CNP))
+            this.CNP = CNP;
     }
     public String getCNP() {
         return CNP;
+    }
+
+    public void setNume(String nume) {
+        if(getCNP() != null)
+            this.nume = nume;
     }
     public String getNume() {
         return nume;
     }
 
+    public void setVarsta(int varsta) {
+        if(getCNP() != null)
+            if(validareVarsta(varsta))
+                this.varsta = varsta;
+    }
     public int getVarsta() {
         return varsta;
     }
-//    protected void validareDate(String nume, int varsta, String CNP) {
-//        if(CNP.length() != 13)
-//            System.out.println("EROARE: CNP invalid");
-//        for(char ch : CNP.toCharArray()){
-//            if(!Character.isDigit(ch)) {
-//                System.out.println("EROARE: CNP invalid");
-//                break;
-//            }
-//        }
-//        if(varsta < 18){
-//            System.out.println("EROARE: Vârstă invalidă");
-//        }
-//
-//    }
+
+    protected String validareCNP(String CNP) {
+        if (CNP.length() != 13) {
+            return "EROARE: CNP invalid";
+        }
+
+        for (char ch : CNP.toCharArray()) {
+            if (!Character.isDigit(ch))
+                return "EROARE: CNP invalid";
+        }
+    }
+
+    protected boolean validareVarsta(int varsta){
+        if(varsta < 18){
+            System.out.println("EROARE: Vârstă invalidă");
+            return false;
+        }
+        return true;
+    }
 
 }
