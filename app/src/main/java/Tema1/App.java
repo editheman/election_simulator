@@ -14,7 +14,7 @@ public class App {
 
     public void run() {
         // Implementați aici cerințele din enunț
-        // Pentru citirea datelor de la tastatura se folosește câmpul scanner.
+        // Pentru citirea datelor de la tastatura se folosește câmpul scanner
     }
 
     public static void main(String[] args) {
