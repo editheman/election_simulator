@@ -13,8 +13,6 @@ public class App {
     }
 
     public void run() {
-        // Implementați aici cerințele din enunț
-        // Pentru citirea datelor de la tastatura se folosește câmpul scanner
         scanner = new Scanner(System.in);
         boolean ruleaza = true;
         String id, nume, regiune, CNP;
