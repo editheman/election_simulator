@@ -6,7 +6,9 @@ public class Alegeri {
     private String id;
     private String nume;
     private int statut = -1;
-    public ArrayList<Alegeri> alegeri = new ArrayList<Alegeri>();
+
+    public ArrayList<Circumscriptie> circumscriptii = new ArrayList<>();
+    public ArrayList<Candidat> candidati = new ArrayList<>();
 
     public Alegeri(String id, String nume) {
         setId(id);
@@ -17,12 +19,15 @@ public class Alegeri {
     public void setId(String id) {
         this.id = id;
     }
-    public String getId() {
-        return id;
-    }
-
     public void setNume(String nume) {
         this.nume = nume;
+    }
+    public void setStatut(int statut) {
+        this.statut = statut;
+    }
+
+    public String getId() {
+        return id;
     }
     public String getNume() {
         return nume;
@@ -32,19 +37,30 @@ public class Alegeri {
         return statut;
     }
 
-    public String startAlegeri(String id) {
-        for (Alegeri alegere : alegeri) {
-            if(alegere.getId().equals(id)) {
-                if(statut == -1) {
-                    statut = 0;
-                    return "Au pornit alegerile" + getNume();
-                } else {
-                    return "EROARE: Alegerile deja au început";
-                }
+    public String adaugareCircumscriptie(String numeCircumscriptie, String regiune){
+        for(Circumscriptie circumscriptie : circumscriptii){
+            if(circumscriptie.getNume().equals(numeCircumscriptie)){
+                return "EROARE: Deja există o circumscripție cu numele " + circumscriptie.getNume();
             }
         }
-        return "EROARE: Nu există alegeri cu acest id";
+        Circumscriptie circumscriptie = new Circumscriptie(numeCircumscriptie, regiune);
+        circumscriptii.add(circumscriptie);
+        return "S-a adăugat circumscripția " + circumscriptie.getNume();
     }
 
-    public String
+    public void golireCircumscriptii(){
+        circumscriptii.clear();
+    }
+
+    public void adaugareCandidat(String CNP, int varsta, String nume){
+        Candidat candidat = new Candidat(CNP, varsta, nume);
+        candidati.add(candidat);
+    }
+    public void eliminareCandidat(String CNP){
+        for(Candidat candidat : candidati){
+            if(candidat.getCNP().equals(CNP)){
+                candidati.remove(candidat);
+            }
+        }
+    }
 }

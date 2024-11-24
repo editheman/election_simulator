@@ -19,47 +19,24 @@ abstract class Persoana {
     }
 
     public void setCNP(String CNP){
-        if(validareCNP(CNP))
-            this.CNP = CNP;
+        this.CNP = CNP;
     }
     public String getCNP() {
         return CNP;
     }
 
     public void setNume(String nume) {
-        if(getCNP() != null)
-            this.nume = nume;
+        this.nume = nume;
     }
     public String getNume() {
         return nume;
     }
 
     public void setVarsta(int varsta) {
-        if(getCNP() != null)
-            if(validareVarsta(varsta))
-                this.varsta = varsta;
+        this.varsta = varsta;
     }
     public int getVarsta() {
         return varsta;
-    }
-
-    protected String validareCNP(String CNP) {
-        if (CNP.length() != 13) {
-            return "EROARE: CNP invalid";
-        }
-
-        for (char ch : CNP.toCharArray()) {
-            if (!Character.isDigit(ch))
-                return "EROARE: CNP invalid";
-        }
-    }
-
-    protected boolean validareVarsta(int varsta){
-        if(varsta < 18){
-            System.out.println("EROARE: Vârstă invalidă");
-            return false;
-        }
-        return true;
     }
 
 }

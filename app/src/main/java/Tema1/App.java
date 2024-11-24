@@ -17,23 +17,46 @@ public class App {
         // Pentru citirea datelor de la tastatura se folosește câmpul scanner
         scanner = new Scanner(System.in);
         boolean ruleaza = true;
+        String id, nume, regiune, CNP;
+        int varsta;
+
+        Input input = new Input();
 
         while(ruleaza) {
             int optiune = scanner.nextInt();
+            scanner.nextLine();
             switch(optiune) {
+                case 0:
+                    id = scanner.next();
+                    nume = scanner.nextLine();
+                    System.out.println(input.creareAlegeri(id, nume));
+                    break;
                 case 1:
-                    
+                    id = scanner.nextLine();
+                    System.out.println(input.startAlegeri(id));
                     break;
                 case 2:
-
+                    id = scanner.next();
+                    nume = scanner.next();
+                    regiune = scanner.nextLine();
+                    System.out.println(input.adaugareCircumscriptie(id, nume, regiune));
                     break;
                 case 3:
-
+                    id = scanner.nextLine();
+                    nume = scanner.nextLine();
+                    System.out.println(input.eliminareCircumscriptie(id, nume));
                     break;
                 case 4:
+                    id = scanner.next();
+                    CNP = scanner.next();
+                    varsta = scanner.nextInt();
+                    scanner.nextLine();
+                    nume = scanner.nextLine();
                     break;
-
                 case 5:
+                    id = scanner.next();
+                    CNP = scanner.nextLine();
+                    System.out.println(input.eliminareCandidat(id, CNP));
                     break;
 
                 case 6:

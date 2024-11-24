@@ -1,7 +1,12 @@
 package Tema1;
+
+import java.util.ArrayList;
+
 public class Circumscriptie {
-    public String nume;
-    public String regiune;
+    private String nume;
+    private String regiune;
+    public ArrayList<Votant> votanti = new ArrayList<>();
+
 
     public Circumscriptie(String nume, String regiune) {
         setNume(nume);
@@ -19,5 +24,9 @@ public class Circumscriptie {
     }
     public String getRegiune() {
         return regiune;
+    }
+
+    public void eliminareVotanti(){
+        votanti.clear();
     }
 }
