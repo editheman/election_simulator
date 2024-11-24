@@ -13,7 +13,6 @@ public class App {
     }
 
     public void run() {
-        scanner = new Scanner(System.in);
         boolean ruleaza = true;
         String id, nume, regiune, CNP;
         int varsta;
@@ -40,7 +39,7 @@ public class App {
                     System.out.println(input.adaugareCircumscriptie(id, nume, regiune));
                     break;
                 case 3:
-                    id = scanner.nextLine();
+                    id = scanner.next();
                     nume = scanner.nextLine();
                     System.out.println(input.eliminareCircumscriptie(id, nume));
                     break;

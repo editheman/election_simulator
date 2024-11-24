@@ -10,7 +10,7 @@ public class Input {
             if(alegere.getId().equals(id)) {
                 if(alegere.getStatut() == -1) {
                     alegere.setStatut(0);
-                    return "Au pornit alegerile " + alegere.getNume();
+                    return "Au pornit alegerile" + alegere.getNume();
                 } else {
                     return "EROARE: Alegerile deja au inceput";
                 }
@@ -27,7 +27,7 @@ public class Input {
         }
         Alegeri alegere = new Alegeri(id, nume);
         alegeri.add(alegere);
-        return "S-au creat alegerile " + alegere.getNume();
+        return "S-au creat alegerile" + alegere.getNume();
     }
 
     public String adaugareCircumscriptie(String id, String numeCircumscriptie, String regiune){
@@ -76,8 +76,8 @@ public class Input {
             }
         }
         if(!exista)
-            return "EROARE: Nu exista o circumscriptie cu numele " + numeCircumscriptie;
-        return "S-a sters circumscriptia " + numeCircumscriptie;
+            return "EROARE: Nu exista o circumscriptie cu numele" + numeCircumscriptie;
+        return "S-a sters circumscriptia" + numeCircumscriptie;
 
     }
 

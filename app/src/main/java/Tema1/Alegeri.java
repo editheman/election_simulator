@@ -40,7 +40,7 @@ public class Alegeri {
     public String adaugareCircumscriptie(String numeCircumscriptie, String regiune){
         for(Circumscriptie circumscriptie : circumscriptii){
             if(circumscriptie.getNume().equals(numeCircumscriptie)){
-                return "EROARE: Deja exista o circumscripție cu numele " + circumscriptie.getNume();
+                return "EROARE: Deja exista o circumscriptie cu numele " + circumscriptie.getNume();
             }
         }
         Circumscriptie circumscriptie = new Circumscriptie(numeCircumscriptie, regiune);
