@@ -71,6 +71,7 @@ public class Alegeri {
     public void printareCandidati(){
         if(candidati.isEmpty()){
             System.out.println("GOL: Nu sunt candidati");
+            return;
         }
         candidati.sort(Comparator.comparing(Candidat::getCNP));
         System.out.println("Candidatii:");

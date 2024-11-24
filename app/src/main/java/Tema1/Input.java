@@ -205,14 +205,48 @@ public class Input {
         boolean exista = false;
         for (Alegeri alegere : alegeri) {
             if(alegere.getId().equals(id)) {
-                if(alegere.getStatut() != 0)
+                if(alegere.getStatut() != 0) {
                     System.out.println("EROARE: Inca nu au inceput alegerile");
+                    return;
+                }
                 alegere.printareCandidati();
                 exista = true;
             }
         }
         if(!exista)
             System.out.println("EROARE: Nu exista alegeri cu acest id");
+    }
+
+    public void printareVotanti(String id, String numeCircumscriptie){
+        boolean exista = false;
+        boolean exista2 = false;
+        for (Alegeri alegere : alegeri) {
+            if(alegere.getId().equals(id)) {
+                exista = true;
+                if(alegere.getStatut() != 0) {
+                    System.out.println("EROARE: Inca nu au inceput alegerile");
+                    return;
+                }
+                for(Circumscriptie circumscriptie : alegere.circumscriptii) {
+                    if(circumscriptie.getNume().equals(numeCircumscriptie)) {
+                        exista2 = true;
+                        if(circumscriptie.votanti.isEmpty()) {
+                            System.out.println("GOL: Nu sunt votanti in " + numeCircumscriptie);
+                            return;
+                        }
+                        System.out.println("Votantii din " + numeCircumscriptie + ":");
+                        circumscriptie.printareVotanti();
+                    }
+                }
+            }
+        }
+        if(!exista){
+            System.out.println("EROARE: Nu exista alegeri cu acest id");
+        }
+        if(!exista2){
+            System.out.println("EROARE: Nu exista o circumscriptie cu numele " + numeCircumscriptie);
+            return;
+        }
     }
 
 

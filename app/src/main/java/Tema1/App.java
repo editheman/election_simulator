@@ -68,9 +68,10 @@ public class App {
                     id = scanner.nextLine().trim();
                     input.printareCandidati(id);
                     break;
-
                 case 8:
-
+                    id = scanner.next().trim();
+                    numeCircumscriptie = scanner.nextLine().trim();
+                    input.printareVotanti(id, numeCircumscriptie);
                     break;
                 case 9:
                     break;

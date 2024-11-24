@@ -34,4 +34,10 @@ public class Circumscriptie {
         votanti.clear();
     }
 
+    public void printareVotanti(){
+        for(Votant votant : votanti){
+            System.out.println(votant.getNume() + " " + votant.getCNP() + " " + votant.getVarsta());
+        }
+    }
+
 }
