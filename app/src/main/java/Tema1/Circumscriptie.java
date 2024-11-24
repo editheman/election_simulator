@@ -7,7 +7,7 @@ public class Circumscriptie {
     private String regiune;
     public ArrayList<Votant> votanti = new ArrayList<>();
 
-
+    public Circumscriptie() {}
     public Circumscriptie(String nume, String regiune) {
         setNume(nume);
         setRegiune(regiune);
@@ -26,7 +26,12 @@ public class Circumscriptie {
         return regiune;
     }
 
+    public void adaugareVotant(String nume, int varsta, String CNP, String neindemanatic){
+        Votant votant = new Votant(nume, varsta, CNP, neindemanatic);
+        votanti.add(votant);
+    }
     public void eliminareVotanti(){
         votanti.clear();
     }
+
 }

@@ -1,6 +1,8 @@
 package Tema1;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.stream.Collectors;
 
 public class Alegeri {
     private String id;
@@ -52,15 +54,28 @@ public class Alegeri {
         circumscriptii.clear();
     }
 
-    public void adaugareCandidat(String CNP, int varsta, String nume){
-        Candidat candidat = new Candidat(CNP, varsta, nume);
+    public void adaugareCandidat(String nume, int varsta, String CNP){
+        Candidat candidat = new Candidat(nume, varsta, CNP);
         candidati.add(candidat);
     }
     public void eliminareCandidat(String CNP){
+        Candidat candidat2 = new Candidat();
         for(Candidat candidat : candidati){
             if(candidat.getCNP().equals(CNP)){
-                candidati.remove(candidat);
+                candidat2 = candidat;
             }
+        }
+        candidati.remove(candidat2);
+    }
+
+    public void printareCandidati(){
+        if(candidati.isEmpty()){
+            System.out.println("GOL: Nu sunt candidati");
+        }
+        candidati.sort(Comparator.comparing(Candidat::getCNP));
+        System.out.println("Candidatii:");
+        for(Candidat candidat : candidati){
+            System.out.println(candidat.getNume() + " " + candidat.getCNP() + " " + candidat.getVarsta());
         }
     }
 }

@@ -14,7 +14,7 @@ public class App {
 
     public void run() {
         boolean ruleaza = true;
-        String id, nume, regiune, CNP;
+        String id, nume, regiune, CNP, numeCircumscriptie, neindemanatic;
         int varsta;
 
         Input input = new Input();
@@ -25,7 +25,7 @@ public class App {
             switch(optiune) {
                 case 0:
                     id = scanner.next();
-                    nume = scanner.nextLine();
+                    nume = scanner.nextLine().trim();
                     System.out.println(input.creareAlegeri(id, nume));
                     break;
                 case 1:
@@ -40,26 +40,33 @@ public class App {
                     break;
                 case 3:
                     id = scanner.next();
-                    nume = scanner.nextLine();
+                    nume = scanner.nextLine().trim();
                     System.out.println(input.eliminareCircumscriptie(id, nume));
                     break;
                 case 4:
                     id = scanner.next();
-                    CNP = scanner.next();
+                    CNP = scanner.next().trim();
                     varsta = scanner.nextInt();
-                    scanner.nextLine();
-                    nume = scanner.nextLine();
+                    nume = scanner.nextLine().trim();
+                    System.out.println(input.adaugareCandidat(id, CNP, varsta, nume));
                     break;
                 case 5:
-                    id = scanner.next();
-                    CNP = scanner.nextLine();
+                    id = scanner.next().trim();
+                    CNP = scanner.nextLine().trim();
                     System.out.println(input.eliminareCandidat(id, CNP));
                     break;
-
                 case 6:
+                    id = scanner.next().trim();
+                    numeCircumscriptie = scanner.next().trim();
+                    CNP = scanner.next().trim();
+                    varsta = scanner.nextInt();
+                    neindemanatic = scanner.next().trim();
+                    nume = scanner.nextLine().trim();
+                    System.out.println(input.adaugareVotant(id, numeCircumscriptie, CNP, varsta, neindemanatic, nume));
                     break;
                 case 7:
-
+                    id = scanner.nextLine().trim();
+                    input.printareCandidati(id);
                     break;
 
                 case 8:
