@@ -12,17 +12,17 @@ public class Input {
                     alegere.setStatut(0);
                     return "Au pornit alegerile " + alegere.getNume();
                 } else {
-                    return "EROARE: Alegerile deja au început";
+                    return "EROARE: Alegerile deja au inceput";
                 }
             }
         }
-        return "EROARE: Nu există alegeri cu acest id";
+        return "EROARE: Nu exista alegeri cu acest id";
     }
 
     public String creareAlegeri(String id, String nume) {
         for (Alegeri alegere : alegeri) {
             if(alegere.getId().equals(id)) {
-                return "EROARE: Deja există alegeri cu id " + id;
+                return "EROARE: Deja exista alegeri cu id " + id;
             }
         }
         Alegeri alegere = new Alegeri(id, nume);
@@ -41,7 +41,7 @@ public class Input {
             }
         }
         if(!exista)
-            return "EROARE: Nu există alegeri cu acest id";
+            return "EROARE: Nu exista alegeri cu acest id";
         Alegeri alegere2 = new Alegeri();
         for(Alegeri alegere : alegeri) {
             if(alegere.getId().equals(id)) {
@@ -62,7 +62,7 @@ public class Input {
             }
         }
         if(!exista)
-            return "EROARE: Nu există alegeri cu acest id";
+            return "EROARE: Nu exista alegeri cu acest id";
         exista = false;
         for(Alegeri alegere : alegeri) {
             if(alegere.getId().equals(id)) {
@@ -76,8 +76,8 @@ public class Input {
             }
         }
         if(!exista)
-            return "EROARE: Nu există o circumscripție cu numele " + numeCircumscriptie;
-        return "S-a șters circumscripția " + numeCircumscriptie;
+            return "EROARE: Nu exista o circumscriptie cu numele " + numeCircumscriptie;
+        return "S-a sters circumscriptia " + numeCircumscriptie;
 
     }
 
@@ -91,7 +91,7 @@ public class Input {
         }
 
         if(varsta < 18)
-            return "EROARE: Vârstă invalidă";
+            return "EROARE: Varsta invalida";
 
         boolean exista = false;
         for (Alegeri alegere : alegeri) {
@@ -101,20 +101,20 @@ public class Input {
                 }
                 for(Candidat candidat : alegere.candidati){
                     if(candidat.getCNP().equals(CNP)) {
-                        return "EROARE: Candidatul " + candidat.getNume() + " are deja același CNP";
+                        return "EROARE: Candidatul " + candidat.getNume() + " are deja acelasi CNP";
                     }
                 }
                 exista = true;
             }
         }
         if(!exista)
-            return "EROARE: Nu există alegeri cu acest id";
+            return "EROARE: Nu exista alegeri cu acest id";
         for(Alegeri alegere : alegeri) {
             if(alegere.getId().equals(id)) {
                 alegere.adaugareCandidat(CNP, varsta, nume);
             }
         }
-        return "S-a adăugat candidatul " + nume;
+        return "S-a adaugat candidatul " + nume;
     }
 
     public String eliminareCandidat(String id, String CNP){
@@ -132,19 +132,19 @@ public class Input {
                     }
                 }
                 if(!exista)
-                    return "EROARE: Nu există un candidat cu CNP-ul " + CNP;
+                    return "EROARE: Nu exista un candidat cu CNP-ul " + CNP;
                 exista2 = true;
             }
         }
         if(!exista2)
-            return "EROARE: Nu există alegeri cu acest id";
+            return "EROARE: Nu exista alegeri cu acest id";
         candidat2.eliminareVoturiCandidat();
         for(Alegeri alegere : alegeri) {
             if(alegere.getId().equals(id)) {
                 alegere.eliminareCandidat(CNP);
             }
         }
-        return "S-a șters candidatul " + candidat2.getNume();
+        return "S-a sters candidatul " + candidat2.getNume();
     }
 
 
