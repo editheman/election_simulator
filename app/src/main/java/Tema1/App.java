@@ -14,7 +14,7 @@ public class App {
 
     public void run() {
         boolean ruleaza = true;
-        String id, nume, regiune, CNP, numeCircumscriptie, neindemanatic;
+        String id, nume, regiune, CNP, numeCircumscriptie, neindemanatic, CNPCandidat;
         int varsta;
 
         Input input = new Input();
@@ -74,10 +74,20 @@ public class App {
                     input.printareVotanti(id, numeCircumscriptie);
                     break;
                 case 9:
+                    id = scanner.next().trim();
+                    numeCircumscriptie = scanner.next().trim();
+                    CNP = scanner.next().trim();
+                    CNPCandidat = scanner.nextLine().trim();
+                    System.out.println(input.votare(id, numeCircumscriptie, CNP, CNPCandidat));
                     break;
                 case 10:
+                    id = scanner.nextLine().trim();
+                    System.out.println(input.oprireAlegeri(id));
                     break;
                 case 11:
+                    id = scanner.next().trim();
+                    numeCircumscriptie = scanner.nextLine().trim();
+                    System.out.println();
                     break;
                 case 12:
                     break;
@@ -95,8 +105,8 @@ public class App {
                     ruleaza = false;
                     break;
             }
-
         }
+        scanner.close();
     }
 
     public static void main(String[] args) {

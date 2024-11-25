@@ -1,20 +1,25 @@
 package Tema1;
 
 public class Voturi {
-    private String numeCircumscriptie;
-    private int nrVoturi;
+    private String CNPVotant;
+    private String CNPCandidat;
 
-    public void setNumeCircumscriptie(String numeCircumscriptie) {
-        this.numeCircumscriptie = numeCircumscriptie;
-    }
-    public void setNrVoturi(int nrVoturi) {
-        this.nrVoturi = nrVoturi;
+    public Voturi(String CNPVotant, String CNPCandidat) {
+        setCNPVotant(CNPVotant);
+        setCNPCandidat(CNPCandidat);
     }
 
-    public int getNrVoturi() {
-        return nrVoturi;
+    public void setCNPVotant(String CNPCandidat) {
+        this.CNPCandidat = CNPCandidat;
     }
-    public String getNumeCircumscriptie() {
-        return numeCircumscriptie;
+    public void setCNPCandidat(String CNPVotant) {
+        this.CNPVotant = CNPVotant;
+    }
+
+    public String getCNPVotant() {
+        return CNPVotant;
+    }
+    public String getCNPCandidat() {
+        return CNPCandidat;
     }
 }

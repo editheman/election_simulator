@@ -249,5 +249,108 @@ public class Input {
         }
     }
 
+    public String votare(String id, String numeCircumscriptie, String cnpVotant, String cnpCandidat) {
+        boolean exista = false;
+        boolean exista2 = false;
+        boolean exista3 = false;
+        boolean exista4 = false;
+        boolean exista5 = false;
+        String raspunsFunctie = "";
+
+        for(Alegeri alegere : alegeri) {
+            if(alegere.getId().equals(id)) {
+                exista = true;
+                if(alegere.getStatut() != 0)
+                    return "EROARE: Nu este perioada de votare";
+                for(Circumscriptie circumscriptie : alegere.circumscriptii) {
+                    if(circumscriptie.getNume().equals(numeCircumscriptie))
+                        exista2 = true;
+                    for (Votant votant : circumscriptie.votanti) {
+                        if (votant.getCNP().equals(cnpVotant)) {
+                            exista4 = true;
+                        }
+                    }
+                }
+                if(!exista2)
+                    return "EROARE: Nu exista o circumscriptie cu numele " + numeCircumscriptie;
+                if (!exista4)
+                    return "EROARE: Nu exista un votant cu CNP-ul " + cnpVotant;
+                for(Circumscriptie circumscriptie1 : alegere.circumscriptii) {
+                    if(circumscriptie1.getNume().equals(numeCircumscriptie)){
+                        for(Candidat candidat : alegere.candidati) {
+                            if (candidat.getCNP().equals(cnpCandidat)) {
+                                exista3 = true;
+                                for (Votant votant : circumscriptie1.votanti) {
+                                    if (votant.getCNP().equals(cnpVotant)) {
+                                        exista5 = true;
+                                        raspunsFunctie = circumscriptie1.adaugareVot(cnpVotant, cnpCandidat, candidat.getNume(), candidat);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+        if(!exista)
+            return "EROARE: Nu exista alegeri cu acest id";
+        if(!exista3)
+            return "EROARE: Nu exista un candidat cu CNP-ul " + cnpCandidat;
+        if(!exista5){
+            for(Alegeri alegere : alegeri)
+                if(alegere.getId().equals(id))
+                    for(Circumscriptie circumscriptie1 : alegere.circumscriptii)
+                        circumscriptie1.adaugareFrauda(cnpVotant, cnpCandidat);
+            return "FRAUDA: Votantul cu CNP-ul " + cnpVotant + " a incercat sa comita o frauda. Votul a fost anulat";
+        }
+        return raspunsFunctie;
+    }
+
+    public String oprireAlegeri(String id){
+        boolean exista = false;
+        Alegeri alegere1 = new Alegeri();
+
+        for(Alegeri alegere : alegeri) {
+            if(alegere.getId().equals(id)){
+                exista = true;
+                if(alegere.getStatut() != 0)
+                    return "EROARE: Nu este perioada de votare";
+                alegere.setStatut(1);
+                alegere1 = alegere;
+            }
+        }
+        if(!exista)
+            return "EROARE: Nu exista alegeri cu acest id";
+    return "S-au terminat alegerile " + alegere1.getNume();
+    }
+
+//    public String raportCircumscriptie(String id, String numeCircumscriptie){
+//        boolean exista = false;
+//        boolean exista2 = false;
+//        String commandOutput = "";
+//
+//        for (Alegeri alegere : alegeri) {
+//            if(alegere.getId().equals(id)){
+//                exista = true;
+//                if(alegere.getStatut() != 1)
+//                    return "EROARE: Inca nu s-a terminat votarea";
+//                for(Circumscriptie circumscriptie : alegere.circumscriptii) {
+//                    if(circumscriptie.getNume().equals(numeCircumscriptie)){
+//                        exista2 = true;
+//                        if(circumscriptie.votanti.isEmpty())
+//                            return "GOL: Lumea nu isi exercita dreptul de vot in " + numeCircumscriptie;
+//                        commandOutput = circumscriptie.raport(numeCircumscriptie);
+//                    }
+//                }
+//            }
+//        }
+//        if(!exista)
+//            return "EROARE: Nu exista alegeri cu acest id";
+//        if(!exista2)
+//            return "EROARE: Nu exista o circumscripție cu numele " + numeCircumscriptie;
+//        return commandOutput;
+//    }
+
 
 }

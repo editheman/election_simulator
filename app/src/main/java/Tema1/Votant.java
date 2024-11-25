@@ -2,7 +2,7 @@ package Tema1;
 import java.util.ArrayList;
 
 public class Votant extends Persoana{
-    String neindemanatic;
+    private String neindemanatic;
 
     public Votant(){
     }
