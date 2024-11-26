@@ -87,19 +87,31 @@ public class App {
                 case 11:
                     id = scanner.next().trim();
                     numeCircumscriptie = scanner.nextLine().trim();
-                    System.out.println();
+                    System.out.println(input.raportCircumscriptie(id, numeCircumscriptie));
                     break;
                 case 12:
+                    id = scanner.nextLine().trim();
+                    System.out.println(input.raportNational(id));
                     break;
                 case 13:
+                    id = scanner.next().trim();
+                    numeCircumscriptie = scanner.nextLine().trim();
+                    System.out.println(input.analizaCircumscriptie(id, numeCircumscriptie));
                     break;
                 case 14:
+                    id = scanner.nextLine().trim();
+                    System.out.println(input.analizaNationala(id));
                     break;
                 case 15:
+                    id = scanner.nextLine().trim();
+                    System.out.println(input.raportFraude(id));
                     break;
                 case 16:
+                    id = scanner.nextLine().trim();
+                    System.out.println(input.eliminareAlegeri(id));
                     break;
                 case 17:
+                    System.out.println(input.listareAlegeri());
                     break;
                 case 18:
                     ruleaza = false;

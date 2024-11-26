@@ -16,8 +16,11 @@ public class Candidat extends Persoana {
         voturi.clear();
     }
 
-    public void incNrVoturi() {
-        nrVoturi++;
+    public void incNrVoturi(int nr) {
+        nrVoturi = nrVoturi + nr;
+    }
+    public void setNrVoturi(int nrVoturi) {
+        this.nrVoturi = nrVoturi;
     }
     public int getNrVoturi() {
         return nrVoturi;

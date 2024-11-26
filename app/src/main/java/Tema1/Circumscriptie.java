@@ -30,7 +30,7 @@ public class Circumscriptie {
     }
 
     public void adaugareVotant(String nume, int varsta, String CNP, String neindemanatic){
-        Votant votant = new Votant(nume, varsta, CNP, neindemanatic);
+        Votant votant = new Votant(nume, varsta, CNP, neindemanatic, false);
         votanti.add(votant);
     }
     public void eliminareVotanti(){
@@ -43,49 +43,115 @@ public class Circumscriptie {
         }
     }
 
-    public String adaugareVot(String cnpVotant, String cnpCandidat, String numeCandidat, Candidat candidat){
+    public String adaugareVot(String cnpVotant, String cnpCandidat, String numeCandidat, Candidat candidat, String numeVotant){
         Votant votant1 = new Votant();
-
         for(Votant votant : votanti){
             if(votant.getCNP().equals(cnpVotant)){
-                for(Voturi voturi : voturi){
-                    if(voturi.getCNPVotant().equals(cnpVotant)){
-                        adaugareFrauda(cnpVotant, cnpCandidat);
+                for(Voturi vot : voturi){
+                    if(vot.getCNPVotant().equals(cnpVotant)){
+                        adaugareFrauda(cnpVotant, cnpCandidat, numeVotant);
                         return "FRAUDA: Votantul cu CNP-ul " + cnpVotant + " a incercat sa comita o frauda. Votul a fost anulat";
                     }
                 }
                 for(Frauda frauda : fraude){
                     if(frauda.getCnpVotant().equals(cnpVotant)){
-                        adaugareFrauda(cnpVotant, cnpCandidat);
                         return "FRAUDA: Votantul cu CNP-ul " + cnpVotant + " a incercat sa comita o frauda. Votul a fost anulat";
                     }
                 }
-                if(votant.getNeindemanatic().equals("da"))
-                    adaugareFrauda(cnpVotant, cnpCandidat);
-                else{
+                if(votant.getaVotat()){
+                    adaugareFrauda(cnpVotant, cnpCandidat, numeVotant);
+                    return "FRAUDA: Votantul cu CNP-ul " + cnpVotant + " a incercat sa comita o frauda. Votul a fost anulat";
+                }
+                if(votant.getNeindemanatic().equals("nu")) {
                     Voturi vot = new Voturi(cnpVotant, cnpCandidat);
                     voturi.add(vot);
-                    candidat.incNrVoturi();
+                    candidat.incNrVoturi(1);
                 }
+                votant.setaVotat(true);
                 votant1 = votant;
             }
         }
         return votant1.getNume() + " a votat pentru " + numeCandidat;
     }
-    public void adaugareFrauda(String cnpVotant, String cnpCandidat){
-        Frauda frauda = new Frauda(cnpVotant, cnpCandidat);
+
+    public void adaugareFrauda(String cnpVotant, String cnpCandidat, String numeVotant){
+        Frauda frauda = new Frauda(cnpVotant, cnpCandidat, numeVotant);
         fraude.add(frauda);
     }
 
-//    public String raport(String numeCircumscriptie){
-//        StringBuilder constructor = new StringBuilder();
-//        constructor.append("Raport voturi " + numeCircumscriptie + ":").append("\n");
-//        votanti.sort(Comparator.comparing(Votant::getCNP).reversed());
-//        for(Votant votant : votanti){
-////            System.out.println(votant.getNume() + " " + votant.getCNP() + " " + votant.getVarsta());
-//            constructor.append(votant.getNume() + " " + votant.getCNP() + " " + votant.getVarsta() + " - " + votant.).append("\n");
+    public String raport(ArrayList<Candidat> candidati, String numeCircumscriptie){
+        ArrayList<Candidat> candidatiCircumscriptie = new ArrayList<>();
+        StringBuilder constructor = new StringBuilder();
+        candidatiCircumscriptie.addAll(candidati);
+
+        for(Candidat candidat : candidatiCircumscriptie){
+            candidat.setNrVoturi(0);
+        }
+
+        for(Voturi vot : voturi){
+            for(Candidat candidat : candidatiCircumscriptie){
+                if(vot.getCNPCandidat().equals(candidat.getCNP()))
+                    candidat.incNrVoturi(1);
+            }
+        }
+        constructor.append("Raport voturi " + numeCircumscriptie + ":").append("\n");
+        candidatiCircumscriptie.sort(Comparator.comparing(Candidat::getNrVoturi).reversed().thenComparing(Candidat::getCNP).reversed());
+        for(Candidat candidat : candidatiCircumscriptie){
+            constructor.append(candidat.getNume() + " " + candidat.getCNP() + " - " + candidat.getNrVoturi()).append("\n");
+        }
+        return constructor.toString();
+    }
+
+    public Candidat raportCircumscriptie(ArrayList<Candidat> candidati){
+        ArrayList<Candidat> candidatiCircumscriptie = new ArrayList<>();
+        candidatiCircumscriptie.addAll(candidati);
+
+        for(Candidat candidat : candidatiCircumscriptie){
+            candidat.setNrVoturi(0);
+        }
+
+        for(Candidat candidat : candidatiCircumscriptie){
+            for(Voturi vot : voturi){
+                if(vot.getCNPCandidat().equals(candidat.getCNP()))
+                    candidat.incNrVoturi(1);
+            }
+        }
+        candidatiCircumscriptie.sort(Comparator.comparing(Candidat::getNrVoturi).reversed());
+        return candidatiCircumscriptie.get(0);
+    }
+
+    public ArrayList<Candidat> numarVoturiPeCircumscriptie(ArrayList<Candidat> candidati){
+        ArrayList<Candidat> candidatiCircumscriptie = new ArrayList<>();
+
+//        for(Candidat candidat : candidati)
+//            System.out.println(candidat.getNume() + " " + candidat.getNrVoturi());
+//
+//        System.out.println("\n");
+
+        for(Candidat candidat : candidati){
+            Candidat candidat1 = new Candidat(candidat.getNume(), candidat.getVarsta(), candidat.getCNP());
+            candidatiCircumscriptie.add(candidat1);
+        }
+
+
+        for(Candidat candidat : candidatiCircumscriptie){
+            candidat.setNrVoturi(0);
+        }
+
+        for(Candidat candidat : candidatiCircumscriptie){
+            for(Voturi vot : voturi){
+                if(vot.getCNPCandidat().equals(candidat.getCNP()))
+                    candidat.incNrVoturi(1);
+            }
+        }
+        candidatiCircumscriptie.sort(Comparator.comparing(Candidat::getNume));
+
+//        for(Candidat candidat : candidatiCircumscriptie){
+//            System.out.println(candidat.getNume() + " " + candidat.getNrVoturi());
 //        }
-//        return constructor.toString();
-//    }
+//
+//        System.out.println("\n");
+        return candidatiCircumscriptie;
+    }
 
 }

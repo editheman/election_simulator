@@ -3,17 +3,26 @@ import java.util.ArrayList;
 
 public class Votant extends Persoana{
     private String neindemanatic;
+    private boolean aVotat = false;
 
     public Votant(){
     }
 
-    public Votant(String nume, int varsta, String CNP, String neindemanatic){
+    public Votant(String nume, int varsta, String CNP, String neindemanatic, boolean aVotat){
         super(nume, varsta, CNP);
         setNeindemanatic(neindemanatic);
+        setaVotat(aVotat);
     }
 
+    public void setaVotat(boolean aVotat){
+        this.aVotat = aVotat;
+    }
     public void setNeindemanatic(String neindemanatic){
         this.neindemanatic = neindemanatic;
+    }
+
+    public boolean getaVotat(){
+        return aVotat;
     }
     public String getNeindemanatic(){
         return neindemanatic;

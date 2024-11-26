@@ -9,11 +9,11 @@ public class Voturi {
         setCNPCandidat(CNPCandidat);
     }
 
-    public void setCNPVotant(String CNPCandidat) {
-        this.CNPCandidat = CNPCandidat;
-    }
-    public void setCNPCandidat(String CNPVotant) {
+    public void setCNPVotant(String CNPVotant) {
         this.CNPVotant = CNPVotant;
+    }
+    public void setCNPCandidat(String CNPCandidat) {
+        this.CNPCandidat = CNPCandidat;
     }
 
     public String getCNPVotant() {
