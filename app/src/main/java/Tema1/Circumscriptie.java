@@ -123,11 +123,6 @@ public class Circumscriptie {
     public ArrayList<Candidat> numarVoturiPeCircumscriptie(ArrayList<Candidat> candidati){
         ArrayList<Candidat> candidatiCircumscriptie = new ArrayList<>();
 
-//        for(Candidat candidat : candidati)
-//            System.out.println(candidat.getNume() + " " + candidat.getNrVoturi());
-//
-//        System.out.println("\n");
-
         for(Candidat candidat : candidati){
             Candidat candidat1 = new Candidat(candidat.getNume(), candidat.getVarsta(), candidat.getCNP());
             candidatiCircumscriptie.add(candidat1);
@@ -146,11 +141,6 @@ public class Circumscriptie {
         }
         candidatiCircumscriptie.sort(Comparator.comparing(Candidat::getNume));
 
-//        for(Candidat candidat : candidatiCircumscriptie){
-//            System.out.println(candidat.getNume() + " " + candidat.getNrVoturi());
-//        }
-//
-//        System.out.println("\n");
         return candidatiCircumscriptie;
     }
 

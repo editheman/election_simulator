@@ -13,7 +13,6 @@ public class Regiune {
         for(Candidat candidat : candidatiRegiune){
             suma = suma + candidat.getNrVoturi();
         }
-//        System.out.println("pula" + suma + "pula");
         return suma;
     }
 

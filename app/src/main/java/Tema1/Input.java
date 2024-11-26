@@ -405,7 +405,6 @@ public class Input {
                 }
                 for(Circumscriptie circumscriptie : alegere.circumscriptii) {
                     if(circumscriptie.getNume().equals(numeCircumscriptie)){
-//                        exista2 = true;
                         nrVoturiCircumscriptie = circumscriptie.voturi.size();
                         candidatCastigatorCircumscriptie = circumscriptie.raportCircumscriptie(alegere.candidati);
                     }
@@ -442,18 +441,8 @@ public class Input {
                     candidatiCircumscriptie.clear();
                     candidatiCircumscriptie = circumscriptie.numarVoturiPeCircumscriptie(alegere.candidati);
 
-
-//                    System.out.println("Initial:" + numeRegiune + "\n");
                     for(Regiune regiune : regiuni) {
                         if (regiune.getNume().equals(numeRegiune)) {
-//                            System.out.println(regiune.getNume());
-//                            for(Regiune regiune2 : regiuni) {
-//                                System.out.println(regiune2.getNume());
-//                                for(Candidat candidat : regiune2.candidatiRegiune) {
-//                                    System.out.println(candidat.getNume() + " " + candidat.getNrVoturi());
-//                                }
-//                                System.out.println("\n");
-//                            }
                             for (Candidat candidat : regiune.candidatiRegiune) {
                                 for(Candidat candidat2 : candidatiCircumscriptie) {
                                     if(candidat2.getCNP().equals(candidat.getCNP())) {
@@ -464,12 +453,7 @@ public class Input {
                             exista2 = true;
                         }
                     }
-//                    System.out.println("Copie:\n");
-//                    for(Candidat candidat : candidatiCircumscriptie) {
-//                        System.out.println(candidat.getNume() + " " + candidat.getNrVoturi());
-//                    }
                     if(!exista2){
-//                        System.out.println("Yes");
                         Regiune regiuneNoua = new Regiune();
                         regiuneNoua.setNume(numeRegiune.trim());
                         for(Candidat candidat : candidatiCircumscriptie) {
@@ -477,27 +461,13 @@ public class Input {
                             candidat1.setNrVoturi(candidat.getNrVoturi());
                             regiuneNoua.candidatiRegiune.add(candidat1);
                         }
-//                        regiuneNoua.candidatiRegiune.addAll(candidatiCircumscriptie);
                         regiuni.add(regiuneNoua);
-//
-//                        for(Candidat candidat : regiuneNoua.candidatiRegiune) {
-//                            System.out.println(candidat.getNume() + " " + candidat.getNrVoturi());
-//
-//                        }
                     }
                 }
             }
         }
         if(!exista)
             return "EROARE: Nu exista alegeri cu acest id";
-
-//        System.out.println("After:");
-//        for(Regiune regiune : regiuni) {
-//            System.out.println(regiune.getNume());
-//            for(Candidat candidat : regiune.candidatiRegiune) {
-//                System.out.println(candidat.getNume() + " " + candidat.getNrVoturi());
-//            }
-//        }
 
         StringBuilder constructor = new StringBuilder();
         int numarVoturiNationale = numarVoturiNationale(regiuni);
@@ -514,7 +484,6 @@ public class Input {
         for(Regiune regiune : regiuni) {
             candidat = regiune.castigator();
             numarVoturiRegiune = regiune.numarVoturiRegiune();
-//            System.out.println(candidat.getNrVoturi() + " " +numarVoturiRegiune+ " " + numarVoturiNationale +"ciocan");
             procentajRegiune = (int)((double)((double)candidat.getNrVoturi() / (double)numarVoturiRegiune) * 100);
             procentajNational = (int)((double)((double)numarVoturiRegiune / (double)numarVoturiNationale) * 100);
 
@@ -522,11 +491,6 @@ public class Input {
         }
         return constructor.toString();
     }
-
-//    public String anal(String id){
-//        boolean exista = false;
-//
-//    }
 
     public int numarVoturiNationale(ArrayList<Regiune> regiuni){
         int suma = 0;
