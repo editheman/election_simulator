@@ -8,6 +8,7 @@ public class Regiune {
     private String nume;
     public ArrayList<Candidat> candidatiRegiune = new ArrayList<>();
 
+//    numarVoturiRegiune: returneaza suma voturilor de pe o intreaga regiune
     public int numarVoturiRegiune(){
         int suma = 0;
         for(Candidat candidat : candidatiRegiune){
@@ -15,7 +16,7 @@ public class Regiune {
         }
         return suma;
     }
-
+//    castigator: desemnez un castigator, ordonand vectorul descrescator, castigator revenind primul
     public Candidat castigator(){
         candidatiRegiune.sort(Comparator.comparing(Candidat::getNrVoturi).reversed());
         return candidatiRegiune.get(0);

@@ -39,6 +39,7 @@ public class Alegeri {
         return statut;
     }
 
+//    adaugareCircumscriptie: o functie in care adaug in lista de circumscriptii un element or returnez eroarea corespunzatoare
     public String adaugareCircumscriptie(String numeCircumscriptie, String regiune){
         for(Circumscriptie circumscriptie : circumscriptii){
             if(circumscriptie.getNume().equals(numeCircumscriptie)){
@@ -50,14 +51,11 @@ public class Alegeri {
         return "S-a adaugat circumscriptia " + circumscriptie.getNume();
     }
 
-    public void golireCircumscriptii(){
-        circumscriptii.clear();
-    }
-
     public void adaugareCandidat(String nume, int varsta, String cnp){
         Candidat candidat = new Candidat(nume, varsta, cnp);
         candidati.add(candidat);
     }
+//    eliminareCandidat: stergerea unui candidat
     public void eliminareCandidat(String cnp){
         Candidat candidat2 = new Candidat();
         for(Candidat candidat : candidati){
@@ -67,7 +65,8 @@ public class Alegeri {
         }
         candidati.remove(candidat2);
     }
-
+//    printareCandidati: printarea tuturor candidatilor ce participa la o anumita alegere
+//    sortez candidatii dupa cnp crescator
     public void printareCandidati(){
         if(candidati.isEmpty()){
             System.out.println("GOL: Nu sunt candidati");

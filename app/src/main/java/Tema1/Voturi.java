@@ -1,6 +1,8 @@
 package Tema1;
 
 public class Voturi {
+//    pentru fiecare vot, pentru a mi face ulterior cautarea mai usoara, ratin 2 cnp uri pentru a identifica
+//    de unde vine, si catre cine merge votul
     private String cnpVotant;
     private String cnpCandidat;
 

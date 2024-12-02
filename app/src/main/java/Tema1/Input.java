@@ -5,11 +5,13 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class Input {
+//    imi initializez un vector de alegerei pentru a pute incepe rularea programului
     private ArrayList<Alegeri> alegeri = new ArrayList<>();
-
+//    startAlegeri :functia testeaza statusul in care se afla alegerea respectiva, si returneaza eroarea aferenta
     public String startAlegeri(String id) {
         for (Alegeri alegere : alegeri) {
             if(alegere.getId().equals(id)) {
+//                singurul moment in care pot sa pornesc alegerile
                 if(alegere.getStatut() == -1) {
                     alegere.setStatut(0);
                     return "Au pornit alegerile " + alegere.getNume();
@@ -20,7 +22,8 @@ public class Input {
         }
         return "EROARE: Nu exista alegeri cu acest id";
     }
-
+//    creareAlegeri : creez o alegere noua, prima data cautand daca mai exista alta cu alelasi id. In acest caz, nu o creez
+//    pe cea noua si returnez eroarea aferenta
     public String creareAlegeri(String id, String nume) {
         for (Alegeri alegere : alegeri) {
             if(alegere.getId().equals(id)) {
@@ -32,6 +35,9 @@ public class Input {
         return "S-au creat alegerile " + alegere.getNume();
     }
 
+//  adaugareCircumscriptie : la fel ca la alegeri, testez daca mai exista vreo circumscriptie cu acelasi id. In caz afirmativ, returnez eroare,
+//    altfel creez circumscriptia. pe langa asta, testez ca alegerile sa fie in desfasurare, pentru ca altfel nu pot
+//    adauga alta circumscriptie
     public String adaugareCircumscriptie(String id, String numeCircumscriptie, String regiune){
         boolean exista = false;
         for (Alegeri alegere : alegeri) {
@@ -54,6 +60,9 @@ public class Input {
         return alegere2.adaugareCircumscriptie(numeCircumscriptie, regiune);
     }
 
+//    eliminareCircumscriptie: caut in vectorul de alegeri si identific dula id alegerea corecta. daca alegerea este in desfasurare,
+//    caut cutcumscriptia cu pricina in vectorul de circumscriptii iar daca exista o elimin. in caz contrar
+//    in oricare din cele enuntate anterior, returnez o erare aferenta
     public String eliminareCircumscriptie(String id, String numeCircumscriptie){
         boolean exista = false;
         for (Alegeri alegere : alegeri) {
@@ -89,7 +98,8 @@ public class Input {
         return "S-a sters circumscriptia " + numeCircumscriptie;
 
     }
-
+//  adaugareCandidat : prima data trebuie sa testez daca datele introduse sunt corecte (cnp care sa respecte anumite criterii, sa aiba o anumita varsta)
+//    ulterior, caut alegerile, circumscriptia, si verific sa nu mai fie niciun candidat care sa aibe acelasi cnp
     public String adaugareCandidat(String id, String cnp, int varsta, String nume){
         if (cnp.length() != 13)
             return "EROARE: CNP invalid";
@@ -125,7 +135,8 @@ public class Input {
         }
         return "S-a adaugat candidatul " + nume;
     }
-
+//    eliminareCandidat : la eliminarea candidatului, caut alegerea corecta, circumscriptia, perioada de votare sa fie una aferenta,
+//    iar apoi candidatul daca exista in lista de candidati. in acest caz, il elimin, in caz contrar returnez eroarea corespunzatoare
     public String eliminareCandidat(String id, String cnp){
         boolean exista = false, exista2 = false;
         Candidat candidat2 = new Candidat();
@@ -147,7 +158,6 @@ public class Input {
         }
         if(!exista2)
             return "EROARE: Nu exista alegeri cu acest id";
-        candidat2.eliminareVoturiCandidat();
         for(Alegeri alegere : alegeri) {
             if(alegere.getId().equals(id)) {
                 alegere.eliminareCandidat(cnp);
@@ -155,7 +165,9 @@ public class Input {
         }
         return "S-a sters candidatul " + candidat2.getNume();
     }
-
+//    adaugareVotant : pentru adaugarea votantului, verific ca datele introduse sa indeplineasca anumimte criterii (varsta minima, cnp de o anumita marime
+//    si cu caracteristicile specifice). verific ca alegerea sa existe si sa fie in stadiul corect, circumscriptia sa existe, si ca votantul
+//    sa nu impartaseasca acelasi cnp cu alta persoana. in caz contrar, returnez eroarea caracteristica pentru problema intampinata
     public String adaugareVotant(String id, String numeCircumscriptie, String cnp, int varsta, String neindemanatic, String nume){
         if (cnp.length() != 13)
             return "EROARE: CNP invalid";
@@ -202,7 +214,8 @@ public class Input {
         }
         return "S-a adaugat votantul " + nume;
     }
-
+//    printareCandidati : verific daca exista alegera si starea ei, si apoi apelez functia printare candidati, ce va afisa candidatii, cu datele in ordinea
+//    precizata in enunt
     public void printareCandidati(String id){
         boolean exista = false;
         for (Alegeri alegere : alegeri) {
@@ -218,7 +231,8 @@ public class Input {
         if(!exista)
             System.out.println("EROARE: Nu exista alegeri cu acest id");
     }
-
+//    printareVotanti : pentru printarea votantilor, caut alegerea corecta, circumscriptia corecta, si apelez functia  printareVotanti care
+//    imi va printa fiecare votant
     public void printareVotanti(String id, String numeCircumscriptie){
         boolean exista = false;
         boolean exista2 = false;
@@ -250,7 +264,7 @@ public class Input {
             return;
         }
     }
-
+//     votare : in momentul in care un votant este neindemanatic, votul lui nu va fi luat in considerare si va fi trecut direct la frauda
     public String votare(String id, String numeCircumscriptie, String cnpVotant, String cnpCandidat) {
         boolean exista = false;
         boolean exista2 = false;
@@ -258,23 +272,28 @@ public class Input {
         boolean exista4 = false;
         boolean exista5 = false;
         String raspunsFunctie = "";
-
+//        caut alegerea data ca argument
         for(Alegeri alegere : alegeri) {
             if(alegere.getId().equals(id)) {
                 exista = true;
+//                verific statusul ei
                 if(alegere.getStatut() != 0)
                     return "EROARE: Nu este perioada de votare";
+//                caut circumscriptia corecta
                 for(Circumscriptie circumscriptie : alegere.circumscriptii) {
                     if(circumscriptie.getNume().equals(numeCircumscriptie))
                         exista2 = true;
+//                    verific daca inainte de a vota, votantul a fost inscris in circumscriptie
                     for (Votant votant : circumscriptie.votanti) {
                         if (votant.getCnp().equals(cnpVotant)) {
                             exista4 = true;
                         }
                     }
                 }
+//                nu exista circumscriptia
                 if(!exista2)
                     return "EROARE: Nu exista o circumscriptie cu numele " + numeCircumscriptie;
+//                 votantul nu este inregistrat
                 if (!exista4)
                     return "EROARE: Nu exista un votant cu CNP-ul " + cnpVotant;
                 for(Circumscriptie circumscriptie1 : alegere.circumscriptii) {
@@ -285,6 +304,7 @@ public class Input {
                                 for (Votant votant : circumscriptie1.votanti) {
                                     if (votant.getCnp().equals(cnpVotant)) {
                                         exista5 = true;
+//                                        apelam functia care salveaza datele votantului, si ii asteptam raspunsul
                                         raspunsFunctie = circumscriptie1.adaugareVot(cnpVotant, cnpCandidat, candidat.getNume(), candidat, votant.getNume());
                                     }
                                 }
@@ -295,17 +315,21 @@ public class Input {
 
             }
         }
+//        alegeri invalide
         if(!exista)
             return "EROARE: Nu exista alegeri cu acest id";
+//        candidat inexistent
         if(!exista3)
             return "EROARE: Nu exista un candidat cu CNP-ul " + cnpCandidat;
+        //un votant incearca sa voteze la alta circumscriptie
         if(!exista5){
-            //un votant incearca sa voteze la alta circumscriptie
+//            votantul a fost descoperit in alta circumscriptie ca fiind inscris, si incearca sa voteze la una diferita
             for(Alegeri alegere : alegeri)
                 if(alegere.getId().equals(id))
                     for(Circumscriptie circumscriptie1 : alegere.circumscriptii){
                         for(Votant votant : circumscriptie1.votanti){
                             if (votant.getCnp().equals(cnpVotant)) {
+//                                il declaram ca fruda
                                 circumscriptie1.adaugareFrauda(cnpVotant, cnpCandidat, votant.getNume());
                             }
                         }
@@ -315,7 +339,7 @@ public class Input {
         }
         return raspunsFunctie;
     }
-
+//    oprireAlegeri : verificam daca exista alegerile si au statusul corect, iar apoi le schimbam statusul
     public String oprireAlegeri(String id){
         boolean exista = false;
         Alegeri alegere1 = new Alegeri();
@@ -333,7 +357,7 @@ public class Input {
             return "EROARE: Nu exista alegeri cu acest id";
     return "S-au terminat alegerile " + alegere1.getNume();
     }
-
+//    raportCircumscriptie : validez existenta alegerii, statusul corect, rai apoi afisez un raport pentru circumscriptia data
     public String raportCircumscriptie(String id, String numeCircumscriptie){
         boolean exista = false;
         boolean exista2 = false;
@@ -347,6 +371,7 @@ public class Input {
                 for(Circumscriptie circumscriptie : alegere.circumscriptii) {
                     if(circumscriptie.getNume().equals(numeCircumscriptie)){
                         exista2 = true;
+//                        apelez functia care mi va afisa si calcula numarul de voturi pentru fiecare candidat
                         if(circumscriptie.voturi.isEmpty())
                             return "GOL: Lumea nu isi exercita dreptul de vot in " + numeCircumscriptie;
                         commandOutput = circumscriptie.raport(alegere.candidati, numeCircumscriptie);
@@ -360,7 +385,9 @@ public class Input {
             return "EROARE: Nu exista o circumscriptie cu numele " + numeCircumscriptie;
         return commandOutput;
     }
-
+//    raportNational : validez existenta alegerii, statusul corect, rai apoi afisez un raport pe tara
+//    fiecare candidat, are un atribut de tip int numit numarVoturi, care se incrementeaza de fiecare data cand cineva voteaza acea persoana
+//    indiferent din ce circumscriptie, creeind un numar de voturi national
     public String raportNational(String id){
         boolean exista = false;
         boolean exista2 = false;
@@ -377,8 +404,11 @@ public class Input {
                 }
                 if(!exista2)
                     return "GOL: Lumea nu isi exercita dreptul de vot in Romania";
+//                sortez candidatii dupa numarul de voturi, iar in caz de egalitate, dupa cnp in ordine (in ordine descrescatoare)
                 alegere.candidati.sort(Comparator.comparing(Candidat::getNrVoturi).reversed().thenComparing(Candidat::getCnp).reversed());
                 constructor.append("Raport voturi Romania:").append("\n");
+//                dupa sortare, creed un string auxiliar in care adaug fiecare candidat cu datele sale, pentru a le putea returna
+//                functiei main
                 for(Candidat candidat : alegere.candidati) {
                     constructor.append(candidat.getNume() + " " + candidat.getCnp() + " - " + candidat.getNrVoturi()).append("\n");
                 }
@@ -388,7 +418,8 @@ public class Input {
             return "EROARE: Nu exista alegeri cu acest id";
         return constructor.toString();
     }
-
+//    analizaCircumscriptie : dupa verificarea axistentei alegerii, statusul ei si existenta circumscriptiiei, apelez functia care mi va calcula
+//    numarul de voturi si mi va returna candidatul castigator
     public String analizaCircumscriptie(String id, String numeCircumscriptie){
         boolean exista = false;
         Candidat candidatCastigatorCircumscriptie = new Candidat();
@@ -421,7 +452,11 @@ public class Input {
         return "In " + numeCircumscriptie + " au fost "+ nrVoturiCircumscriptie + " voturi din " + nrVoturiNationale + ". Adica " + procentaj + "%. Cele mai multe voturi au fost stranse de " + candidatCastigatorCircumscriptie.getCnp() + " " + candidatCastigatorCircumscriptie.getNume() + ". Acestea constituie " + procentajCircumscriptie + "% din voturile circumscriptiei.";
 
     }
-
+//    analizaNationala : pentru fiecare regiune in parte, trec prin vectorul de ciscumscriptii, iar daca gasesc o circumscriptie intr o regiune pe care
+//    inca nu am adaugat o in vectorul de regiuni, initializez regiunea si copiez candidatii alaturi de numarul nor de voturi pe circumscriptia
+//    respectiva. in cazul in care dau de o regiune pe care o am deja in vectorul de regiuni, doar calculez numarul de voturi pentru fiecare
+//    candidat in circumscriptia respectiva, si adaug la numarul de voturi pa care le aveau respectivii candidati deja in regiunea respectiva
+//
     public String analizaNationala(String id){
         ArrayList<Regiune> regiuni = new ArrayList<>();
         boolean exista = false;
@@ -446,6 +481,7 @@ public class Input {
                             for (Candidat candidat : regiune.candidatiRegiune) {
                                 for(Candidat candidat2 : candidatiCircumscriptie) {
                                     if(candidat2.getCnp().equals(candidat.getCnp())) {
+//                                        incrementez numarul de voturi cu cel din noua circumscriptie gasita in aceeasi regiune
                                         candidat.setNrVoturi(candidat.getNrVoturi() + candidat2.getNrVoturi());
                                     }
                                 }
@@ -491,7 +527,7 @@ public class Input {
         }
         return constructor.toString();
     }
-
+//    numarVoturiNationale : calculez suma voturilor nationale
     public int numarVoturiNationale(ArrayList<Regiune> regiuni){
         int suma = 0;
         for(Regiune regiune : regiuni) {
@@ -499,7 +535,7 @@ public class Input {
         }
         return suma;
     }
-
+//    raportFraude : pentru fiecare circumscriptie, afisez vectorul de fraude care s au comis. daca intampin o neregula, returnez eraorea aferenta
     public String raportFraude(String id) {
         boolean exista = false;
         boolean exista2 = false;
@@ -529,7 +565,8 @@ public class Input {
             return "GOL: Romanii sunt cinstiti";
         return constructor.toString();
     }
-
+//    eliminareAlegeri : caut daca alegerea exista in vectorul de alegeri, apoi o elimin, astfel eliminandu se poate
+//    elementele acesteia
     public String eliminareAlegeri(String id) {
         boolean exista = false;
         Alegeri alegere1 = new Alegeri();
@@ -545,7 +582,7 @@ public class Input {
         alegeri.remove(alegere1);
         return "S-au sters alegerile " + alegere1.getNume();
     }
-
+//    listareAlegeri : parcurg vectorul de alegeri si afisez fiecare alegere alaturi de datele pe care le are
     public String listareAlegeri(){
         if(alegeri.isEmpty())
             return "GOL: Nu sunt alegeri";

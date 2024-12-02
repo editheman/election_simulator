@@ -13,15 +13,17 @@ public class App {
     }
 
     public void run() {
+//        un flag pentru a putea face programul sa ruleze in bucla pana la primirea comenzii 18
         boolean ruleaza = true;
         String id, nume, regiune, cnp, numeCircumscriptie, neindemanatic, cnpCandidat;
         int varsta;
-
+//        initializez un obiect de tip input, acesta fiind unul ce imi va prelua comenzile si creerea instantelor necesare
         Input input = new Input();
 
         while(ruleaza) {
             int optiune = scanner.nextInt();
             scanner.nextLine();
+//            tratez fiecare input posibil, si citesc variabilele necesare pentru respectivul input
             switch(optiune) {
                 case 0:
                     id = scanner.next();
