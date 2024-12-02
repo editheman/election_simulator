@@ -8,8 +8,8 @@ public class Votant extends Persoana{
     public Votant(){
     }
 
-    public Votant(String nume, int varsta, String CNP, String neindemanatic, boolean aVotat){
-        super(nume, varsta, CNP);
+    public Votant(String nume, int varsta, String cnp, String neindemanatic, boolean aVotat){
+        super(nume, varsta, cnp);
         setNeindemanatic(neindemanatic);
         setaVotat(aVotat);
     }

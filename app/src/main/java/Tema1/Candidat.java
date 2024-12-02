@@ -9,8 +9,8 @@ public class Candidat extends Persoana {
     public Candidat() {
     }
 
-    public Candidat(String nume, int varsta, String CNP) {
-        super(nume, varsta, CNP);
+    public Candidat(String nume, int varsta, String cnp) {
+        super(nume, varsta, cnp);
     }
     public void eliminareVoturiCandidat() {
         voturi.clear();

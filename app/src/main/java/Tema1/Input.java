@@ -90,11 +90,11 @@ public class Input {
 
     }
 
-    public String adaugareCandidat(String id, String CNP, int varsta, String nume){
-        if (CNP.length() != 13)
+    public String adaugareCandidat(String id, String cnp, int varsta, String nume){
+        if (cnp.length() != 13)
             return "EROARE: CNP invalid";
 
-        for (char ch : CNP.toCharArray()) {
+        for (char ch : cnp.toCharArray()) {
             if (!Character.isDigit(ch))
                 return "EROARE: CNP invalid";
         }
@@ -109,7 +109,7 @@ public class Input {
                     return "EROARE: Nu este perioada de votare";
                 }
                 for(Candidat candidat : alegere.candidati){
-                    if(candidat.getCNP().equals(CNP)) {
+                    if(candidat.getCnp().equals(cnp)) {
                         return "EROARE: Candidatul " + candidat.getNume() + " are deja acelasi CNP";
                     }
                 }
@@ -120,13 +120,13 @@ public class Input {
             return "EROARE: Nu exista alegeri cu acest id";
         for(Alegeri alegere : alegeri) {
             if(alegere.getId().equals(id)) {
-                alegere.adaugareCandidat(nume, varsta, CNP);
+                alegere.adaugareCandidat(nume, varsta, cnp);
             }
         }
         return "S-a adaugat candidatul " + nume;
     }
 
-    public String eliminareCandidat(String id, String CNP){
+    public String eliminareCandidat(String id, String cnp){
         boolean exista = false, exista2 = false;
         Candidat candidat2 = new Candidat();
         for (Alegeri alegere : alegeri) {
@@ -135,13 +135,13 @@ public class Input {
                     return "EROARE: Nu este perioada de votare";
                 }
                 for(Candidat candidat : alegere.candidati){
-                    if(candidat.getCNP().equals(CNP)) {
+                    if(candidat.getCnp().equals(cnp)) {
                         candidat2 = candidat;
                         exista = true;
                     }
                 }
                 if(!exista)
-                    return "EROARE: Nu exista un candidat cu CNP-ul " + CNP;
+                    return "EROARE: Nu exista un candidat cu CNP-ul " + cnp;
                 exista2 = true;
             }
         }
@@ -150,17 +150,17 @@ public class Input {
         candidat2.eliminareVoturiCandidat();
         for(Alegeri alegere : alegeri) {
             if(alegere.getId().equals(id)) {
-                alegere.eliminareCandidat(CNP);
+                alegere.eliminareCandidat(cnp);
             }
         }
         return "S-a sters candidatul " + candidat2.getNume();
     }
 
-    public String adaugareVotant(String id, String numeCircumscriptie, String CNP, int varsta, String neindemanatic, String nume){
-        if (CNP.length() != 13)
+    public String adaugareVotant(String id, String numeCircumscriptie, String cnp, int varsta, String neindemanatic, String nume){
+        if (cnp.length() != 13)
             return "EROARE: CNP invalid";
 
-        for (char ch : CNP.toCharArray()) {
+        for (char ch : cnp.toCharArray()) {
             if (!Character.isDigit(ch))
                 return "EROARE: CNP invalid";
         }
@@ -178,7 +178,7 @@ public class Input {
                     if(circumscriptie.getNume().equals(numeCircumscriptie)) {
                         exista2 = true;
                         for(Votant votant : circumscriptie.votanti) {
-                            if(votant.getCNP().equals(CNP)) {
+                            if(votant.getCnp().equals(cnp)) {
                                 return "EROARE: Votantul " + nume + " are deja acelasi CNP";
                             }
                         }
@@ -195,7 +195,7 @@ public class Input {
             if(alegere.getId().equals(id)) {
                 for (Circumscriptie circumscriptie : alegere.circumscriptii) {
                     if(circumscriptie.getNume().equals(numeCircumscriptie)) {
-                        circumscriptie.adaugareVotant(nume, varsta, CNP, neindemanatic);
+                        circumscriptie.adaugareVotant(nume, varsta, cnp, neindemanatic);
                     }
                 }
             }
@@ -268,7 +268,7 @@ public class Input {
                     if(circumscriptie.getNume().equals(numeCircumscriptie))
                         exista2 = true;
                     for (Votant votant : circumscriptie.votanti) {
-                        if (votant.getCNP().equals(cnpVotant)) {
+                        if (votant.getCnp().equals(cnpVotant)) {
                             exista4 = true;
                         }
                     }
@@ -280,10 +280,10 @@ public class Input {
                 for(Circumscriptie circumscriptie1 : alegere.circumscriptii) {
                     if(circumscriptie1.getNume().equals(numeCircumscriptie)){
                         for(Candidat candidat : alegere.candidati) {
-                            if (candidat.getCNP().equals(cnpCandidat)) {
+                            if (candidat.getCnp().equals(cnpCandidat)) {
                                 exista3 = true;
                                 for (Votant votant : circumscriptie1.votanti) {
-                                    if (votant.getCNP().equals(cnpVotant)) {
+                                    if (votant.getCnp().equals(cnpVotant)) {
                                         exista5 = true;
                                         raspunsFunctie = circumscriptie1.adaugareVot(cnpVotant, cnpCandidat, candidat.getNume(), candidat, votant.getNume());
                                     }
@@ -305,7 +305,7 @@ public class Input {
                 if(alegere.getId().equals(id))
                     for(Circumscriptie circumscriptie1 : alegere.circumscriptii){
                         for(Votant votant : circumscriptie1.votanti){
-                            if (votant.getCNP().equals(cnpVotant)) {
+                            if (votant.getCnp().equals(cnpVotant)) {
                                 circumscriptie1.adaugareFrauda(cnpVotant, cnpCandidat, votant.getNume());
                             }
                         }
@@ -377,10 +377,10 @@ public class Input {
                 }
                 if(!exista2)
                     return "GOL: Lumea nu isi exercita dreptul de vot in Romania";
-                alegere.candidati.sort(Comparator.comparing(Candidat::getNrVoturi).reversed().thenComparing(Candidat::getCNP).reversed());
+                alegere.candidati.sort(Comparator.comparing(Candidat::getNrVoturi).reversed().thenComparing(Candidat::getCnp).reversed());
                 constructor.append("Raport voturi Romania:").append("\n");
                 for(Candidat candidat : alegere.candidati) {
-                    constructor.append(candidat.getNume() + " " + candidat.getCNP() + " - " + candidat.getNrVoturi()).append("\n");
+                    constructor.append(candidat.getNume() + " " + candidat.getCnp() + " - " + candidat.getNrVoturi()).append("\n");
                 }
             }
         }
@@ -418,7 +418,7 @@ public class Input {
         int procentaj = (int)(((double)nrVoturiCircumscriptie / nrVoturiNationale) * 100);
         int procentajCircumscriptie = (candidatCastigatorCircumscriptie.getNrVoturi() / nrVoturiCircumscriptie) * 100;
 
-        return "In " + numeCircumscriptie + " au fost "+ nrVoturiCircumscriptie + " voturi din " + nrVoturiNationale + ". Adica " + procentaj + "%. Cele mai multe voturi au fost stranse de " + candidatCastigatorCircumscriptie.getCNP() + " " + candidatCastigatorCircumscriptie.getNume() + ". Acestea constituie " + procentajCircumscriptie + "% din voturile circumscriptiei.";
+        return "In " + numeCircumscriptie + " au fost "+ nrVoturiCircumscriptie + " voturi din " + nrVoturiNationale + ". Adica " + procentaj + "%. Cele mai multe voturi au fost stranse de " + candidatCastigatorCircumscriptie.getCnp() + " " + candidatCastigatorCircumscriptie.getNume() + ". Acestea constituie " + procentajCircumscriptie + "% din voturile circumscriptiei.";
 
     }
 
@@ -445,7 +445,7 @@ public class Input {
                         if (regiune.getNume().equals(numeRegiune)) {
                             for (Candidat candidat : regiune.candidatiRegiune) {
                                 for(Candidat candidat2 : candidatiCircumscriptie) {
-                                    if(candidat2.getCNP().equals(candidat.getCNP())) {
+                                    if(candidat2.getCnp().equals(candidat.getCnp())) {
                                         candidat.setNrVoturi(candidat.getNrVoturi() + candidat2.getNrVoturi());
                                     }
                                 }
@@ -457,7 +457,7 @@ public class Input {
                         Regiune regiuneNoua = new Regiune();
                         regiuneNoua.setNume(numeRegiune.trim());
                         for(Candidat candidat : candidatiCircumscriptie) {
-                            Candidat candidat1 = new Candidat(candidat.getNume(), candidat.getVarsta(), candidat.getCNP());
+                            Candidat candidat1 = new Candidat(candidat.getNume(), candidat.getVarsta(), candidat.getCnp());
                             candidat1.setNrVoturi(candidat.getNrVoturi());
                             regiuneNoua.candidatiRegiune.add(candidat1);
                         }
@@ -487,7 +487,7 @@ public class Input {
             procentajRegiune = (int)((double)((double)candidat.getNrVoturi() / (double)numarVoturiRegiune) * 100);
             procentajNational = (int)((double)((double)numarVoturiRegiune / (double)numarVoturiNationale) * 100);
 
-            constructor.append("In " + regiune.getNume().trim() + " au fost " + numarVoturiRegiune + " voturi din " + numarVoturiNationale + ". Adica " + procentajNational + "%. Cele mai multe voturi au fost stranse de " + candidat.getCNP() + " " + candidat.getNume() + ". Acestea constituie " + procentajRegiune + "% din voturile regiunii.").append("\n");
+            constructor.append("In " + regiune.getNume().trim() + " au fost " + numarVoturiRegiune + " voturi din " + numarVoturiNationale + ". Adica " + procentajNational + "%. Cele mai multe voturi au fost stranse de " + candidat.getCnp() + " " + candidat.getNume() + ". Acestea constituie " + procentajRegiune + "% din voturile regiunii.").append("\n");
         }
         return constructor.toString();
     }

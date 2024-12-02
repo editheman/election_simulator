@@ -54,14 +54,14 @@ public class Alegeri {
         circumscriptii.clear();
     }
 
-    public void adaugareCandidat(String nume, int varsta, String CNP){
-        Candidat candidat = new Candidat(nume, varsta, CNP);
+    public void adaugareCandidat(String nume, int varsta, String cnp){
+        Candidat candidat = new Candidat(nume, varsta, cnp);
         candidati.add(candidat);
     }
-    public void eliminareCandidat(String CNP){
+    public void eliminareCandidat(String cnp){
         Candidat candidat2 = new Candidat();
         for(Candidat candidat : candidati){
-            if(candidat.getCNP().equals(CNP)){
+            if(candidat.getCnp().equals(cnp)){
                 candidat2 = candidat;
             }
         }
@@ -73,10 +73,10 @@ public class Alegeri {
             System.out.println("GOL: Nu sunt candidati");
             return;
         }
-        candidati.sort(Comparator.comparing(Candidat::getCNP));
+        candidati.sort(Comparator.comparing(Candidat::getCnp));
         System.out.println("Candidatii:");
         for(Candidat candidat : candidati){
-            System.out.println(candidat.getNume() + " " + candidat.getCNP() + " " + candidat.getVarsta());
+            System.out.println(candidat.getNume() + " " + candidat.getCnp() + " " + candidat.getVarsta());
         }
     }
 }

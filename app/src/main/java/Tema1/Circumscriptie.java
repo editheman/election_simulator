@@ -29,8 +29,8 @@ public class Circumscriptie {
         return regiune;
     }
 
-    public void adaugareVotant(String nume, int varsta, String CNP, String neindemanatic){
-        Votant votant = new Votant(nume, varsta, CNP, neindemanatic, false);
+    public void adaugareVotant(String nume, int varsta, String cnp, String neindemanatic){
+        Votant votant = new Votant(nume, varsta, cnp, neindemanatic, false);
         votanti.add(votant);
     }
     public void eliminareVotanti(){
@@ -39,16 +39,16 @@ public class Circumscriptie {
 
     public void printareVotanti(){
         for(Votant votant : votanti){
-            System.out.println(votant.getNume() + " " + votant.getCNP() + " " + votant.getVarsta());
+            System.out.println(votant.getNume() + " " + votant.getCnp() + " " + votant.getVarsta());
         }
     }
 
     public String adaugareVot(String cnpVotant, String cnpCandidat, String numeCandidat, Candidat candidat, String numeVotant){
         Votant votant1 = new Votant();
         for(Votant votant : votanti){
-            if(votant.getCNP().equals(cnpVotant)){
+            if(votant.getCnp().equals(cnpVotant)){
                 for(Voturi vot : voturi){
-                    if(vot.getCNPVotant().equals(cnpVotant)){
+                    if(vot.getCnpVotant().equals(cnpVotant)){
                         adaugareFrauda(cnpVotant, cnpCandidat, numeVotant);
                         return "FRAUDA: Votantul cu CNP-ul " + cnpVotant + " a incercat sa comita o frauda. Votul a fost anulat";
                     }
@@ -90,14 +90,14 @@ public class Circumscriptie {
 
         for(Voturi vot : voturi){
             for(Candidat candidat : candidatiCircumscriptie){
-                if(vot.getCNPCandidat().equals(candidat.getCNP()))
+                if(vot.getCnpCandidat().equals(candidat.getCnp()))
                     candidat.incNrVoturi(1);
             }
         }
         constructor.append("Raport voturi " + numeCircumscriptie + ":").append("\n");
-        candidatiCircumscriptie.sort(Comparator.comparing(Candidat::getNrVoturi).reversed().thenComparing(Candidat::getCNP).reversed());
+        candidatiCircumscriptie.sort(Comparator.comparing(Candidat::getNrVoturi).reversed().thenComparing(Candidat::getCnp).reversed());
         for(Candidat candidat : candidatiCircumscriptie){
-            constructor.append(candidat.getNume() + " " + candidat.getCNP() + " - " + candidat.getNrVoturi()).append("\n");
+            constructor.append(candidat.getNume() + " " + candidat.getCnp() + " - " + candidat.getNrVoturi()).append("\n");
         }
         return constructor.toString();
     }
@@ -112,7 +112,7 @@ public class Circumscriptie {
 
         for(Candidat candidat : candidatiCircumscriptie){
             for(Voturi vot : voturi){
-                if(vot.getCNPCandidat().equals(candidat.getCNP()))
+                if(vot.getCnpCandidat().equals(candidat.getCnp()))
                     candidat.incNrVoturi(1);
             }
         }
@@ -124,7 +124,7 @@ public class Circumscriptie {
         ArrayList<Candidat> candidatiCircumscriptie = new ArrayList<>();
 
         for(Candidat candidat : candidati){
-            Candidat candidat1 = new Candidat(candidat.getNume(), candidat.getVarsta(), candidat.getCNP());
+            Candidat candidat1 = new Candidat(candidat.getNume(), candidat.getVarsta(), candidat.getCnp());
             candidatiCircumscriptie.add(candidat1);
         }
 
@@ -135,7 +135,7 @@ public class Circumscriptie {
 
         for(Candidat candidat : candidatiCircumscriptie){
             for(Voturi vot : voturi){
-                if(vot.getCNPCandidat().equals(candidat.getCNP()))
+                if(vot.getCnpCandidat().equals(candidat.getCnp()))
                     candidat.incNrVoturi(1);
             }
         }

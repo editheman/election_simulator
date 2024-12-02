@@ -4,7 +4,7 @@ package Tema1;
 import java.util.ArrayList;
 
 abstract class Persoana {
-    private String CNP;
+    private String cnp;
     private String nume;
     private int varsta;
 
@@ -12,17 +12,17 @@ abstract class Persoana {
     public Persoana() {
 
     }
-    public Persoana(String nume, int varsta, String CNP) {
-        setCNP(CNP);
+    public Persoana(String nume, int varsta, String cnp) {
+        setCnp(cnp);
         setNume(nume);
         setVarsta(varsta);
     }
 
-    public void setCNP(String CNP){
-        this.CNP = CNP;
+    public void setCnp(String cnp){
+        this.cnp = cnp;
     }
-    public String getCNP() {
-        return CNP;
+    public String getCnp() {
+        return cnp;
     }
 
     public void setNume(String nume) {
