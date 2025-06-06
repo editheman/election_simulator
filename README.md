@@ -1,4 +1,4 @@
-# Tema 1 - POO Pană Eduard-Ștefan
+# Election Simulator
 
 ## Timp de rezolvare:
 
